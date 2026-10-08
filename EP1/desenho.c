@@ -8,9 +8,12 @@
 void linha_horizontal(
     unsigned char img[][MAX_DIM],
     int x, int y, int comprimento,
-    unsigned char cor) {
-
-    /* TODO: implemente esta funcao. */
+    unsigned char cor) 
+{
+    for (int i = 0; i < comprimento; i++) {
+        img[y][x + i] = cor;
+    }
+    
 }
 
 void linha_vertical(
@@ -18,16 +21,20 @@ void linha_vertical(
     int x, int y, int comprimento,
     unsigned char cor) {
 
-    /* TODO: implemente esta funcao. */
+    for (int i = 0; i < comprimento; i++) {
+        img[y + i][x] = cor;
+    }
 }
 
 void pinta_retangulo(
     unsigned char img[][MAX_DIM],
     int x, int y,
     int largura, int altura,
-    unsigned char cor) {
-
-    /* TODO: implemente esta funcao. */
+    unsigned char cor) 
+{
+    for (int i = 0; i < altura; i++) {
+        linha_horizontal(img, x, y + i, largura, cor);
+    }
 }
 
 /*
