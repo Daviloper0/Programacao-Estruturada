@@ -8,9 +8,18 @@ void cantor_rec(
     unsigned char img[][MAX_DIM],
     int x, int y,
     int comprimento,
-    int profundidade) {
+    int profundidade) 
+{
+    if (profundidade == 0) {
+        return;
+    }
+    
+    linha_horizontal(img, x, y, comprimento, 1);
 
-    /* TODO: implemente esta funcao. */
+    if (profundidade > 1) {
+        cantor_rec(img, x, y + 4, comprimento / 3, profundidade - 1);
+        cantor_rec(img, x + (comprimento / 3) * 2, y + 4, comprimento / 3, profundidade - 1);
+    }
 }
 
 void arvore_h_rec(
