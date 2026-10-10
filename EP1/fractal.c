@@ -32,21 +32,11 @@ void arvore_h_rec(
     if (profundidade <= 0) {
         return;
     }
-    //Orientação 0 = horizontal
     
-    printf("x:%d, y:%d, tamanho: %d, Orientacao: %d \n", x, y, tamanho, orientacao);
-    
-    if (orientacao == H_HORIZONTAL) {
-        linha_horizontal(img, x - tamanho, y, 2 * tamanho + 1, 1);
-        arvore_h_rec(img, x - tamanho, y, tamanho, profundidade - 1, H_VERTICAL);
-        arvore_h_rec(img, x + tamanho, y, tamanho, profundidade - 1, H_VERTICAL);
-    } else {
-        linha_vertical(img, x, y - tamanho, 2 * tamanho + 1, 1);
-        arvore_h_rec(img, x, y - tamanho, tamanho / 2, profundidade - 1, H_HORIZONTAL);
-        arvore_h_rec(img, x, y + tamanho, tamanho / 2, profundidade - 1, H_HORIZONTAL);
-    }
-    
-    
+    desenha_segmento(img, x, y, tamanho, 1, orientacao);
+
+    arvore_h_rec(img, x - (tamanho * !orientacao), y - (tamanho * orientacao), tamanho - (tamanho/2) * orientacao, profundidade - 1, !orientacao);
+    arvore_h_rec(img, x + (tamanho * !orientacao), y + (tamanho * orientacao), tamanho - (tamanho/2) * orientacao, profundidade - 1, !orientacao);
     /* TODO: implemente esta funcao. */
 }
 
