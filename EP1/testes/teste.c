@@ -4,6 +4,7 @@
 #include "../desenho.h"
 
 unsigned char imagem2[MAX_DIM][MAX_DIM] = {0};
+unsigned char imagem3[MAX_DIM][MAX_DIM] = {0};
 
 int testes(unsigned char img[][MAX_DIM]) {
     linha_vertical(img, 20, 10, 5, 1);
@@ -15,7 +16,8 @@ int testes(unsigned char img[][MAX_DIM]) {
 
     pinta_retangulo(img, 10, 0, 1, 8, 1);
     salva_pbm("linha_horizontal.pbm", img, 1024, 1024);
-    cantor(imagem2, 5, "cantor.pbm");
     
+    cantor(imagem2, 5, "cantor.pbm");
+    arvore_h(imagem3, 5, "arvore.pbm");
     return 0;
 }

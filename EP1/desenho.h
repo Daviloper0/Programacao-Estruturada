@@ -19,6 +19,11 @@ void pinta_retangulo(
     int largura, int altura,
     unsigned char cor);
 
+void desenha_segmento(
+    unsigned char img[][MAX_DIM],
+    int x, int y, int tamanho,
+    unsigned char cor, int orientacao);
+
 int salva_pbm(const char nome_arquivo[],
               unsigned char img[][MAX_DIM],
               int largura,

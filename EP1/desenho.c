@@ -1,4 +1,5 @@
 #include "desenho.h"
+#include "fractal.h"
 #include <stdio.h>
 
 /*
@@ -36,7 +37,19 @@ void pinta_retangulo(
         linha_horizontal(img, x, y + i, largura, cor);
     }
 }
-
+void desenha_segmento(
+    unsigned char img[][MAX_DIM],
+    int x, int y, int tamanho,
+    unsigned char cor, int orientacao) 
+{
+    /*   
+    linha_horizontal(img, x - tamanho, y, 2 * tamanho + 1, 1);
+    linha_vertical(img, x, y - tamanho, 2 * tamanho + 1, 1);
+    */
+    if (orientacao == H_HORIZONTAL) return linha_horizontal(img, x - tamanho, y, 2 * tamanho + 1, cor);
+    
+    linha_vertical(img, x, y - tamanho, 2 * tamanho + 1, cor);
+}
 /*
  * ================================================================
  * FUNCOES JA IMPLEMENTADAS
