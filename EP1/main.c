@@ -7,8 +7,6 @@
 unsigned char imagem[MAX_DIM][MAX_DIM] = {0};
 
 int main() {
-    testes(imagem);
-    /*
     int tipo, profundidade, sucesso;
 
     printf("Escolha o fractal:\n");
@@ -67,5 +65,5 @@ int main() {
     printf("Imagem salva com sucesso.\n");
 
     return 0;
-    */
+    
 }

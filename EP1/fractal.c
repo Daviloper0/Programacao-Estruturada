@@ -45,9 +45,31 @@ void tapete_rec(
     int x,
     int y,
     int lado,
-    int profundidade) {
-
-    /* TODO: implemente esta funcao. */
+    int profundidade) 
+{
+    if (profundidade == 0) {
+        img[y][x] = 1;
+        return;
+    }
+    for (short int i = 0; i < 3; i++) {
+        for (short int j = 0; j < 3; j++) {
+            if (!(i == 1 && j == 1)) {
+                tapete_rec(img, x + ((i * lado) / 3), y + ((j * lado) / 3), lado / 3, profundidade - 1);
+            }
+        }
+    }
+    /*
+    tapete_rec(img, x, y);
+    tapete_rec(img, x + lado / 3, y);
+    tapete_rec(img, x + (2 * lado) / 3, y);
+    
+    tapete_rec(img, x, y + lado / 3);
+    tapete_rec(img, x + (2 * lado) / 3, y + lado / 3);
+    
+    tapete_rec(img, x, y + (2 * lado) / 3);
+    tapete_rec(img, x + lado / 3, y + (2 * lado) / 3);
+    tapete_rec(img, x + (2 * lado) / 3, y + (2 * lado) / 3);
+    */
 }
 
 /*

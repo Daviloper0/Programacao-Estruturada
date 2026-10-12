@@ -38,3 +38,32 @@ E aí o problema que eu estava tendo (como pode ser visto na árvore 4), é que 
 Particularmente, não acho que essa solução seja fácil de ler, ou entender, não faria isso em um código real, mas ficou elegante o suficiente
 
 O árvore 6 foi quando eu flippei todas as orientações dentro da chamada recursiva, mas esqueci de tirar o operacao = !operacao kkkkk, ficou bonitinho
+
+### Tapete de Sierpinski
+Esse aqui tá um pouco mais difícil kkkk, a função principal começa no (0, 0), talvez fosse melhor fazer uma recursão que sobe?
+
+Entendendo o "lado": se a profundidade é de 3, então o "lado" é 27, no gimp mostra exatamente isso, que o lado é 27, então, no (0,0), eu posso fazer uma borda, mas no fundo, o que realmente dá o desenho, são os 3x3, eu não preciso desenhar nada a mais que isso
+
+Teoricamente, o que eu tenho que fazer, é chamar recursivamente, mas calculando o começo de cada quadrado menor, por exemplo, se profundidade fosse igual a 1, então lado seria igual a 3, que seria o tamanho de um quadrado, talvez seja isso também que eu deva fazer, e estou pensando demais por causa do "Caso profundidade == 0, todo o quadrado atual deve ser pintado de preto", só que no fundo, isso faz sentido, se profundidade for:
+
+* igual a 0, temos um quadrado só
+* se for igual a 1, temos:
+    * lado = 3
+    * espaçamento entre quadrados = 1 (lado / 3)
+    * tamanho do quadrado central = (lado / 3) (não sei se importa)
+* se for igual a 2, temos:
+    * lado = 9
+    * espaçamento entre quadrados = 3 (lado / 3)
+    * tamanho do quadrado central = (lado / 3)
+* se for igual a 3, temos:
+    * lado = 27
+    * espaçamento entre quadrados = 9 (lado / 3)
+    * tamanho do quadrado central = (lado / 3)
+
+Teoricamente, com o espaçamento entre quadrados, conseguiriamos saber onde começar os quadradinhos, tentar progrmaar isso agora.
+
+A única coisa, é que esse, ao contrário dos outros, não calcula o meio, se é que é necessário
+
+Todos os problemas que tive, que me fizeram fazer outros testes de tapete, foi um /3 que não existia kkkk, mas normal, era pra testar justamente isso. Agora vou fazer o for loop que faz as iterações
+
+No tapete 4, o problema é que eu não tinha parado no i = 1, j = 1,

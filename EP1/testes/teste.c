@@ -5,8 +5,9 @@
 
 unsigned char imagem2[MAX_DIM][MAX_DIM] = {0};
 unsigned char imagem3[MAX_DIM][MAX_DIM] = {0};
-
+unsigned char imagem4[MAX_DIM][MAX_DIM] = {0};
 int testes(unsigned char img[][MAX_DIM]) {
+
     linha_vertical(img, 20, 10, 5, 1);
     pinta_retangulo(img, 30, 10, 7, 5, 1);
     linha_vertical(img, 0, 0, 8, 1);
@@ -18,6 +19,8 @@ int testes(unsigned char img[][MAX_DIM]) {
     salva_pbm("linha_horizontal.pbm", img, 1024, 1024);
     
     cantor(imagem2, 5, "cantor.pbm");
-    arvore_h(imagem3, 5, "arvore.pbm");
+    arvore_h(imagem3, 10, "arvore.pbm");
+    tapete(imagem4, 3, "tapete.pbm");
+
     return 0;
 }
