@@ -1,0 +1,40 @@
+EP2 - ESQUELETO PARA OS ALUNOS
+
+Para compilar: make
+Para executar: ./ep2 caminho/para/livro.txt
+Para limpar os arquivos compilados: make clean
+
+O projeto fornecido compila e executa ANTES das implementacoes, mas ainda nao
+constrói o indice: todas as funcoes dos alunos sao stubs. Por isso, inicialmente
+as buscas sempre informam que a palavra nao foi encontrada e a impressao do
+indice e vazia. Isso e esperado.
+
+Funcoes fornecidas (nao modificar):
+- Todos os arquivos texto.*, documento.*, utils.* e main.c;
+- imprime_indice, em indice.c;
+- imprime_ocorrencias, em ocorrencias.c.
+
+Funcoes obrigatorias (implementar):
+- indice.c: inicializa_indice, busca_palavra, insere_palavra, libera_indice;
+- ocorrencias.c: inicializa_ocorrencias, registra_ocorrencia,
+  primeira_ocorrencia, libera_ocorrencias;
+- ocorrencias.h: definir os campos de ListaOcorrencias (substituir reservado).
+
+Funcoes bonus (opcionais):
+- ocorrencias.c: remove_ocorrencia;
+- indice.c: remove_linha.
+
+Ordem sugerida:
+1. Construir o contador de palavras em indice.c, sem depender das listas.
+   Os stubs em ocorrencias.c permitem inicialmente exibir as frequencias.
+2. Implementar as listas em ocorrencias.c, em seguida integrar com indice.c.
+3. Completar as funcoes de liberacao e verificar erros de memoria.
+4. (Bonus) Implementar remove_ocorrencia e remove_linha.
+
+A opcao 2 do menu e bonus e nao tem efeito antes da implementacao.
+As linhas originais do documento nunca sao removidas: somente suas
+ocorrencias no indice podem ser removidas.
+
+Observacao: main.c utiliza inicializacao zero do Indice apenas para manter
+o esqueleto seguro antes de completar inicializa_indice. Os alunos ainda
+devem implementar essa funcao corretamente.
