@@ -7,15 +7,21 @@
 #include <string.h>
 
 void inicializa_indice(Indice *indice) {
-    /* TODO (obrigatorio): inicializar os campos de um indice vazio. */
-    (void)indice;
+    printf("Indice antes de malloc: %p\n", indice);
+    indice = malloc_safe(sizeof(Indice));
+    printf("Indice depois malloc: %p\n", indice);
+    indice -> entradas = NULL;
+    indice -> n = 0;
+    indice -> capacidade = 0;
 }
 
 int busca_palavra(Indice *indice, char *palavra) {
     /* TODO (obrigatorio): buscar com strcmp e devolver posicao ou -1. */
-    (void)indice;
-    (void)palavra;
-    return -1; /* Stub: nenhuma palavra e encontrada por enquanto. */
+
+    for (int i = 0; strcmp(indice -> entradas[i].palavra, palavra) != 0 && i < (indice -> n); i++) {
+        if (strcmp(indice -> entradas[i].palavra, palavra) == 0) return i;
+    }
+    return -1;
 }
 
 void insere_palavra(Indice *indice, char *palavra, int linha) {
@@ -26,6 +32,12 @@ void insere_palavra(Indice *indice, char *palavra, int linha) {
     (void)indice;
     (void)palavra;
     (void)linha;
+    int indice_palavra = busca_palavra(indice, palavra);
+    if (indice_palavra != 0) {
+        indice -> entradas[indice_palavra].frequencia += 1; //faz sentido mas tem cara que vai dar problema
+        //adicionar na lista de ocorrencias
+        return;
+    }
 }
 
 /* FORNECIDA: nao modificar. */

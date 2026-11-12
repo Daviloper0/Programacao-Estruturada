@@ -1,18 +1,71 @@
-#define _POSIX_C_SOURCE 200809L /* Para getline() em C11. */
-
 #include "documento.h"
 #include "indice.h"
 #include "texto.h"
+#include "utils.h"
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
 #include <locale.h>
+#include <wchar.h>
+#include <wctype.h>
 
 void imprime_busca(Indice *indice, Documento *doc, char *palavra);
 int processa_arquivo(FILE *arquivo, Documento *p_doc, Indice *p_indice);
 void interface_principal(Indice *indice, Documento *doc);
+
+char *le_linha(FILE *arquivo) {
+    size_t capacidade = 128;
+    size_t tamanho = 0;
+    char *linha = malloc_safe(capacidade);
+    int c;
+
+    while ((c = fgetc(arquivo)) != EOF && c != '\n') {
+        if (tamanho + 1 >= capacidade) {
+            capacidade *= 2;
+            linha = realloc_safe(linha, capacidade);
+        }
+        linha[tamanho++] = (char)c;
+    }
+
+    if (ferror(arquivo)) {
+        fprintf(stderr, "Erro ao ler o arquivo de entrada.\n");
+        free(linha);
+        exit(EXIT_FAILURE);
+    }
+
+    if (c == EOF && tamanho == 0) {
+        free(linha);
+        return NULL;
+    }
+
+    linha[tamanho] = '\0';
+    return linha;
+}
+
+/* As strings aceitas por setlocale variam entre plataformas. Alem de
+ * configurar a locale, verificamos se ela realmente reconhece UTF-8. */
+int configura_utf8() {
+#ifdef _WIN32
+    const char *opcoes[] = {".UTF8", ".UTF-8", "C.UTF-8", ""};
+#else
+    const char *opcoes[] = {"C.UTF-8", "en_US.UTF-8", ""};
+#endif
+
+    for (size_t i = 0; i < sizeof(opcoes) / sizeof(opcoes[0]); i++) {
+        if (setlocale(LC_CTYPE, opcoes[i]) == NULL)
+            continue;
+
+        /* O caractere 'é' codificado em UTF-8 ocupa exatamente dois bytes. */
+        mbstate_t estado = {0};
+        wchar_t caractere;
+        if (mbrtowc(&caractere, "\xC3\xA9", 2, &estado) == 2 &&
+            iswalnum(caractere))
+            return 1;
+    }
+    return 0;
+}
 
 int main(int argc, char *argv[]) {
     char *nome_arquivo;
@@ -24,8 +77,9 @@ int main(int argc, char *argv[]) {
     }
     nome_arquivo = argv[1];
 
-    if (setlocale(LC_CTYPE, "C.UTF-8") == NULL) {
-        printf("Houve um problema ao tentar definir o locale para UTF-8. Verifique as codificações disponíveis no seu sistema.\n");
+    if (!configura_utf8()) {
+        fprintf(stderr, "Nao foi possivel configurar uma locale UTF-8.\n"
+                        "Use um compilador/runtime C com suporte a UTF-8.\n");
         return 1;
     }
 
@@ -55,11 +109,10 @@ int main(int argc, char *argv[]) {
 }
 
 int processa_arquivo(FILE *arquivo, Documento *p_doc, Indice *p_indice) {
-    char *linha = NULL;
-    size_t capacidade = 0;
+    char *linha;
     int numero_linha = 0;
 
-    while (getline(&linha, &capacidade, arquivo) != -1) {
+    while ((linha = le_linha(arquivo)) != NULL) {
 
         numero_linha++;
         linha[strcspn(linha, "\r\n")] = '\0';
@@ -80,13 +133,7 @@ int processa_arquivo(FILE *arquivo, Documento *p_doc, Indice *p_indice) {
 
         libera_linha_tokenizada(&tokens);
         adiciona_linha(p_doc, linha);
-
-        // A próxima chamada a getline deve alocar outro buffer.
-        linha = NULL;
-        capacidade = 0;
     }
-
-    free(linha);
 
     return 1;
 }
