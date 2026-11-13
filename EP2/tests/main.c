@@ -10,7 +10,18 @@ int main() {
     Indice indice = {0};
     printf("Indice no main: %p\n", &indice);
     inicializa_indice(&indice);
-    printf("Indice inicializado:\n * Capacidade: %d\n * Numero de indices: %d", indice.capacidade, indice.n);
-    
+    if (indice.capacidade != 0 || indice.n != 0) {
+        printf("[ERR] Indice nao inicializado corretamente\n");
+        return -1;
+    }
+    printf("Indice inicializado corretamente: @%p = [Capacidade: %d, Numero de indices: %d]\n", &indice, indice.capacidade, indice.n);
+    int indice_gato;
+    indice_gato = busca_palavra(&indice, "gato");
+
+    if (indice_gato != -1) {
+        printf("[ERR] Por algum milagre encontrou o digito: %d, ao invés de -1", indice_gato);
+        return -1;
+    }
+    insere_palavra(&indice, "Gato", 0);
     return 0;
 }
