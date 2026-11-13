@@ -7,9 +7,6 @@
 #include <string.h>
 
 void inicializa_indice(Indice *indice) {
-    printf("Indice antes de malloc: %p\n", indice);
-    indice = malloc_safe(sizeof(Indice));
-    printf("Indice depois malloc: %p\n", indice);
     indice -> entradas = NULL;
     indice -> n = 0;
     indice -> capacidade = 0;
