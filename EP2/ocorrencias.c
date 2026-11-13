@@ -6,7 +6,8 @@
 
 void inicializa_ocorrencias(ListaOcorrencias *lista) {
     /* TODO (obrigatorio): inicializar lista vazia na representacao escolhida. */
-    (void)lista;
+    lista -> primeira_ocorrencia = NULL;
+    lista -> ultima_ocorrencia = NULL;
 }
 
 void registra_ocorrencia(ListaOcorrencias *lista, int linha) {

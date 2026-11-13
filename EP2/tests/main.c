@@ -23,5 +23,14 @@ int main() {
         return -1;
     }
     insere_palavra(&indice, "Gato", 0);
+    if (indice.capacidade != 5) {
+        printf("[ERR] Capacidade nao e 5, na primeira insercao, e sim: %d", indice.capacidade);
+        return -1;
+    }
+    indice_gato = busca_palavra(&indice, "gato");
+    if (indice_gato != 0) {
+        printf("[ERR] Indice do gato nao e 0, e sim %d", indice_gato);
+        return -1;
+    }
     return 0;
 }

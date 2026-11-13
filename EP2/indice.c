@@ -26,6 +26,26 @@ void insere_palavra(Indice *indice, char *palavra, int linha) {
      * Redimensionar o vetor de entradas quando necessario.
      * Depois, integrar com inicializa_ocorrencias/registra_ocorrencia.
      * A palavra deve ser copiada para memoria pertencente ao indice. */
+    int indice_entrada = busca_palavra(indice, palavra);
+    if (indice_entrada == -1) {
+        //verifica se é necessário redimensionar vetor, não faço isso antes, pois só precisa redimensionar caso insira um índice novo
+        //insere ao final
+        if ((indice -> capacidade) == (indice -> n)) {
+            if (indice -> capacidade == 0) {
+                indice -> capacidade = 5;
+                indice -> entradas = malloc_safe(5 * sizeof(Entrada));
+            } else {
+                indice -> capacidade *= 2;
+                Entrada *temp = realloc_safe(indice -> entradas, indice -> capacidade * sizeof(Entrada));
+                indice -> entradas = temp;
+            }
+        }
+        Entrada entrada_palavra = indice -> entradas[indice -> n];
+        entrada_palavra.palavra = palavra;
+        entrada_palavra.frequencia = 1;
+        
+        indice -> n += 1;
+    }
     (void)indice;
     (void)palavra;
     (void)linha;

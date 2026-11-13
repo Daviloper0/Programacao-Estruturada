@@ -11,8 +11,10 @@ typedef struct no_ocorrencia {
  * O campo abaixo e apenas um marcador, para o esqueleto compilar.
  * Substituam-no pelos ponteiros/campos necessarios a sua representacao.
  * As ocorrencias de linhas distintas devem ficar em ordem crescente. */
+
 typedef struct {
-    int reservado; /* TODO: substituir pela representacao da lista. */
+    NoOcorrencia *primeira_ocorrencia;
+    NoOcorrencia *ultima_ocorrencia;
 } ListaOcorrencias;
 
 /* Inicializa uma lista vazia. */
