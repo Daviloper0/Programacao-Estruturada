@@ -36,6 +36,10 @@ int main() {
         printf("[ERR] Indice do gato nao e 0, e sim %d", indice_gato);
         return -1;
     }
-    
+    insere_palavra(&indice, "Cachorro", 0);
+    if (indice.n != 2) {
+        printf("[ERR] N nao e 2, e sim: %d", indice.n);
+        return -1;
+    }
     return 0;
 }
