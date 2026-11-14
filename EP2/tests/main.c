@@ -27,10 +27,15 @@ int main() {
         printf("[ERR] Capacidade nao e 5, na primeira insercao, e sim: %d", indice.capacidade);
         return -1;
     }
-    indice_gato = busca_palavra(&indice, "gato");
+    if (indice.n != 1) {
+        printf("[ERR] N nao e 1, e sim: %d", indice.n);
+        return -1;
+    }
+    indice_gato = busca_palavra(&indice, "Gato");
     if (indice_gato != 0) {
         printf("[ERR] Indice do gato nao e 0, e sim %d", indice_gato);
         return -1;
     }
+    
     return 0;
 }

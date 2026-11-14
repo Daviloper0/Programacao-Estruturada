@@ -14,8 +14,7 @@ void inicializa_indice(Indice *indice) {
 
 int busca_palavra(Indice *indice, char *palavra) {
     /* TODO (obrigatorio): buscar com strcmp e devolver posicao ou -1. */
-    
-    for (int i = 0; i < (indice -> n) && strcmp(indice -> entradas[i].palavra, palavra) != 0; i++) {
+    for (int i = 0; i < (indice -> n); i++) {
         if (strcmp(indice -> entradas[i].palavra, palavra) == 0) return i;
     }
     return -1;
@@ -40,12 +39,11 @@ void insere_palavra(Indice *indice, char *palavra, int linha) {
                 indice -> entradas = temp;
             }
         }
-        Entrada entrada_palavra = indice -> entradas[indice -> n];
-        entrada_palavra.palavra = palavra;
-        entrada_palavra.frequencia = 1;
-        
+        indice -> entradas[indice -> n].palavra = palavra;
+        indice -> entradas[indice -> n].frequencia = 1;
         indice -> n += 1;
     }
+
     (void)indice;
     (void)palavra;
     (void)linha;
