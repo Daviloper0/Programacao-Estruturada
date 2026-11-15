@@ -41,5 +41,42 @@ int main() {
         printf("[ERR] N nao e 2, e sim: %d", indice.n);
         return -1;
     }
+    insere_palavra(&indice, "Passarinho", 0);
+    if (indice.n != 3) {
+        printf("[ERR] N nao e 3, e sim: %d", indice.n);
+        return -1;
+    }
+    insere_palavra(&indice, "Pato", 1);
+    if (indice.n != 4) {
+        printf("[ERR] N nao e 4, e sim: %d", indice.n);
+        return -1;
+    }
+    insere_palavra(&indice, "Jamanta", 1);
+    if (indice.n != 5) {
+        printf("[ERR] N nao e 5, e sim: %d", indice.n);
+        return -1;
+    }
+    insere_palavra(&indice, "Patito", 1);
+    if (indice.n != 6) {
+        printf("[ERR] N nao e 6, e sim: %d", indice.n);
+        return -1;
+    }
+    insere_palavra(&indice, "Bomba relogio", 1);
+    if (indice.n != 7) {
+        printf("[ERR] N nao e 7, e sim: %d", indice.n);
+        return -1;
+    }
+    if (indice.capacidade != 10) {
+        printf("[ERR] Capacidade nao e 10, e sim: %d", indice.capacidade);
+        return -1;
+    }
+
+    if (indice.capacidade != 10) {
+        printf("[ERR] Capacidade nao e 10, e sim: %d", indice.n);
+        return -1;
+    }
+    insere_palavra(&indice, "Gato", 1);
+    insere_palavra(&indice, "Gato", 1);
+    imprime_indice(&indice);
     return 0;
 }

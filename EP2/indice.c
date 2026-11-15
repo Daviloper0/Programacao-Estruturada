@@ -41,9 +41,14 @@ void insere_palavra(Indice *indice, char *palavra, int linha) {
         }
         indice -> entradas[indice -> n].palavra = palavra;
         indice -> entradas[indice -> n].frequencia = 1;
+        inicializa_ocorrencias(&indice -> entradas[indice ->n].ocorrencias);
+
+        registra_ocorrencia(&indice -> entradas[indice -> n].ocorrencias, linha);
         indice -> n += 1;
+
     } else {
         indice -> entradas[indice_entrada].frequencia += 1;
+        registra_ocorrencia(&indice -> entradas[indice_entrada].ocorrencias, linha);
     }
 
     (void)indice;

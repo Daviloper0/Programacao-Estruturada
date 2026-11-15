@@ -16,3 +16,4 @@ Eu ia fazer esse depois de fazer a inserção, só que pra inserir, tem que ver 
 Então, o índice, ele tem um vetor de entradas, então se eu quero acessar a palavra dentro de um certo indice, eu tenho que fazer indice -> entradas -> palavra? É como se o índice fosse um "objeto" que guardasse uma informação sobre um array de entradas!? kkkk
 
 Esqueci que a ordem importa, então o certo é eu verificar primeiro se i < (indice -> n)
+esqueci de novo que ordem importa, fiquei quebrando a cabeça, e no fim era porque o 
