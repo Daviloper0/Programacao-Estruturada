@@ -39,7 +39,9 @@ void insere_palavra(Indice *indice, char *palavra, int linha) {
                 indice -> entradas = temp;
             }
         }
-        indice -> entradas[indice -> n].palavra = palavra;
+        indice -> entradas[indice -> n].palavra = malloc_safe(strlen(palavra) + 1); //O +1 é necessário para o \0
+        strcpy(indice -> entradas[indice -> n].palavra, palavra);
+
         indice -> entradas[indice -> n].frequencia = 1;
         inicializa_ocorrencias(&indice -> entradas[indice ->n].ocorrencias);
 
@@ -68,8 +70,12 @@ void imprime_indice(Indice *indice) {
 }
 
 void libera_indice(Indice *indice) {
-    /* TODO (obrigatorio): liberar cada palavra, cada lista e o vetor. */
-    (void)indice;
+    //o for só libera 
+    for (int i = 0; i < indice -> n; i++) {
+        libera_ocorrencias(&indice -> entradas[i].ocorrencias);
+        free(indice -> entradas[i].palavra);
+    }
+    free(indice -> entradas);
 }
 
 void remove_linha(Indice *indice, int linha) {

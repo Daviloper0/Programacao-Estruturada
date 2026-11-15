@@ -77,6 +77,9 @@ int main() {
     }
     insere_palavra(&indice, "Gato", 1);
     insere_palavra(&indice, "Gato", 1);
+    insere_palavra(&indice, "Gato", 2);
+    insere_palavra(&indice, "Gato", 2);
+    insere_palavra(&indice, "Bomba relogio", 1);
     imprime_indice(&indice);
     return 0;
 }

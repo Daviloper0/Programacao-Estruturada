@@ -9,6 +9,11 @@ void inicializa_ocorrencias(ListaOcorrencias *lista) {
     lista -> primeira_ocorrencia = NULL;
     lista -> ultima_ocorrencia = NULL;
 }
+void registra_primeira_ocorrencia(NoOcorrencia *no, int linha) {
+    no -> linha = linha;
+    no -> quantidade = 1;
+    no -> prox = NULL;
+}
 
 void registra_ocorrencia(ListaOcorrencias *lista, int linha) {
     /* TODO (obrigatorio): criar no, ou incrementar a quantidade se
@@ -16,20 +21,20 @@ void registra_ocorrencia(ListaOcorrencias *lista, int linha) {
     //ideia: vê a última, se ela é na mesma linha, incrementa, se não, troca linha.
     if(lista -> ultima_ocorrencia != NULL && lista -> ultima_ocorrencia -> linha == linha) {
         lista -> ultima_ocorrencia -> quantidade += 1;
-    } else {
-        NoOcorrencia *no_ocorrencia_temp = malloc_safe(sizeof(NoOcorrencia));
-        no_ocorrencia_temp -> linha = linha;
-        no_ocorrencia_temp -> quantidade = 1;
-        no_ocorrencia_temp -> prox = NULL;
+        return;
+    } 
+    
+    NoOcorrencia *no_ocorrencia_temp = malloc_safe(sizeof(NoOcorrencia));
+    registra_primeira_ocorrencia(no_ocorrencia_temp, linha);
 
-        if (lista -> primeira_ocorrencia == NULL) {
-            lista -> primeira_ocorrencia = no_ocorrencia_temp;
-            lista -> ultima_ocorrencia = no_ocorrencia_temp;
-        } else {
-            lista -> ultima_ocorrencia -> prox = no_ocorrencia_temp;
-            lista -> ultima_ocorrencia = no_ocorrencia_temp;
-        }
+    if (lista -> primeira_ocorrencia == NULL) {
+        lista -> primeira_ocorrencia = no_ocorrencia_temp;
+        lista -> ultima_ocorrencia = no_ocorrencia_temp;
+    } else {
+        lista -> ultima_ocorrencia -> prox = no_ocorrencia_temp;
+        lista -> ultima_ocorrencia = no_ocorrencia_temp;
     }
+    
 }
 
 int remove_ocorrencia(ListaOcorrencias *lista, int linha) {
@@ -41,15 +46,18 @@ int remove_ocorrencia(ListaOcorrencias *lista, int linha) {
 }
 
 NoOcorrencia *primeira_ocorrencia(ListaOcorrencias *lista) {
-    /* TODO (obrigatorio): retornar o primeiro no real, ou NULL.
-     * O retorno NULL permite que imprime_ocorrencias funcione
-     * mesmo enquanto a lista ainda nao foi implementada. */
     return lista -> primeira_ocorrencia; //como já foi iniciado, então pode retornar null, sem comparações
 }
 
 void libera_ocorrencias(ListaOcorrencias *lista) {
-    /* TODO (obrigatorio): liberar todos os nos alocados. */
-    (void)lista;
+    NoOcorrencia *no_atual = lista -> primeira_ocorrencia;
+    while (no_atual != NULL) {
+        NoOcorrencia *no_antigo = no_atual;
+        no_atual = no_atual -> prox;
+        free(no_antigo);
+    }
+    lista -> primeira_ocorrencia = NULL;
+    lista -> ultima_ocorrencia = NULL;
 }
 
 /* FORNECIDA: nao modificar. */
