@@ -124,6 +124,7 @@ No *rotacionar(No *lista, int k) {
     } //além dessa função contar, para pegarmos o k real, ela também deixa no último elemento, facilitando a rotação
     
     k_real = k % numero_elementos;
+    printf("k_real %d, nelementos: %d\n", k_real, numero_elementos);
     atual = lista;
 
     for (int i = k_real; i > 0; i--) {
@@ -207,10 +208,19 @@ void testar_reorganizacao() {
 int main() {
     int vetor1[5] = {1,2,3,4,5};
     No *lista1 = criar_lista(vetor1, 5);
+    No *novo_inicio;
     imprimir_lista(lista1);
-    imprimir_lista(rotacionar(lista1, 1));
-    imprimir_lista(rotacionar(lista1, 2));
-    imprimir_lista(rotacionar(lista1, 3));
-    imprimir_lista(rotacionar(lista1, 4));
+    //NÃO É A MESMA LISTA, POR ISSO
+    novo_inicio = rotacionar(lista1, 1);
+    imprimir_lista(novo_inicio);
+    
+    novo_inicio = rotacionar(novo_inicio, 2);
+    imprimir_lista(novo_inicio);
+
+    novo_inicio = rotacionar(novo_inicio, 3);
+    imprimir_lista(novo_inicio);
+
+    novo_inicio = rotacionar(novo_inicio, 4);
+    imprimir_lista(novo_inicio);
     return 0;
 }
