@@ -143,7 +143,28 @@ No *rotacionar(No *lista, int k) {
 }
 
 No *intercalar(No *a, No *b) {
-    return NULL;
+    No *atual_a = a;
+    No *atual_b = b;
+    int a_b = 1;
+
+    while (atual_a != NULL || atual_b != NULL) {
+        //a tem b nulo -> continua so no a
+        //a nulo b tem -> continua so no b
+        //a tem b tem -> alterna
+        if (atual_a != NULL && atual_b == NULL) {
+            atual_a = atual_a -> prox;
+        } else if (atual_a == NULL && atual_b != NULL) {
+            atual_b = atual_b -> prox;
+        } else if (a_b == 1) {
+            atual_a -> prox = atual_b;
+            a_b *= -1;
+        } else {
+            atual_b -> prox = atual_a;
+            a_b *= -1;
+        }
+    }
+    if (a != NULL) return a;
+    return b;
 }
 NoDuplo *reorganizar(NoDuplo *lista) {
     return NULL;
@@ -218,5 +239,12 @@ int main() {
 
     novo_inicio = rotacionar(novo_inicio, 1);
     imprimir_lista(novo_inicio);
+    
+    int vetor2[4] = {1,3,5,7};
+    No *lista2 = criar_lista(vetor2, 4);
+    int vetor3[3] = {2,4,6};
+    No *lista3 = criar_lista(vetor3, 3);
+
+    imprimir_lista(intercalar(lista2, lista3));
     return 0;
 }
