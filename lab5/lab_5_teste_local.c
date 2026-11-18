@@ -117,18 +117,15 @@ No *rotacionar(No *lista, int k) {
     No *novo_inicio = lista;
     short int numero_elementos = 0;
 
-    while (atual != NULL && atual -> prox != NULL) {
+    while (atual != NULL) {
         numero_elementos++;
-
         atual = atual -> prox;
     } //além dessa função contar, para pegarmos o k real, ela também deixa no último elemento, facilitando a rotação
-    
     k_real = k % numero_elementos;
     printf("k_real %d, nelementos: %d\n", k_real, numero_elementos);
     atual = lista;
 
     for (int i = k_real; i > 0; i--) {
-        
         while (atual != NULL) {
             if (atual -> prox -> prox != NULL) {
                 atual = atual -> prox;
@@ -209,18 +206,17 @@ int main() {
     int vetor1[5] = {1,2,3,4,5};
     No *lista1 = criar_lista(vetor1, 5);
     No *novo_inicio;
-    imprimir_lista(lista1);
     //NÃO É A MESMA LISTA, POR ISSO
-    novo_inicio = rotacionar(lista1, 1);
+    novo_inicio = rotacionar(lista1, 5);
     imprimir_lista(novo_inicio);
     
-    novo_inicio = rotacionar(novo_inicio, 2);
+    novo_inicio = rotacionar(novo_inicio, 1);
     imprimir_lista(novo_inicio);
 
-    novo_inicio = rotacionar(novo_inicio, 3);
+    novo_inicio = rotacionar(novo_inicio, 1);
     imprimir_lista(novo_inicio);
 
-    novo_inicio = rotacionar(novo_inicio, 4);
+    novo_inicio = rotacionar(novo_inicio, 1);
     imprimir_lista(novo_inicio);
     return 0;
 }
