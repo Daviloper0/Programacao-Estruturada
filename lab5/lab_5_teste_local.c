@@ -156,11 +156,16 @@ No *intercalar(No *a, No *b) {
         } else if (atual_a == NULL && atual_b != NULL) {
             atual_b = atual_b -> prox;
         } else if (a_b == 1) {
-            atual_a -> prox = atual_b;
-            a_b *= -1;
+            No* temp_a = atual_a -> prox; //guarda o 3
+            atual_a -> prox = atual_b; //1 -> 2
+            atual_a = temp_a; // a -> 3
+            a_b = -1;
+
         } else {
+            No *temp_b = atual_b -> prox;
             atual_b -> prox = atual_a;
-            a_b *= -1;
+            atual_b = temp_b;
+            a_b = 1;
         }
     }
     if (a != NULL) return a;
@@ -224,10 +229,11 @@ void testar_reorganizacao() {
 }
 
 int main() {
-    int vetor1[5] = {1,2,3,4,5};
-    No *lista1 = criar_lista(vetor1, 5);
-    No *novo_inicio;
+    //int vetor1[5] = {1,2,3,4,5};
+    //No *lista1 = criar_lista(vetor1, 5);
+    //No *novo_inicio;
     //NÃO É A MESMA LISTA, POR ISSO
+    /*
     novo_inicio = rotacionar(lista1, 5);
     imprimir_lista(novo_inicio);
     
@@ -239,12 +245,21 @@ int main() {
 
     novo_inicio = rotacionar(novo_inicio, 1);
     imprimir_lista(novo_inicio);
-    
+    */
     int vetor2[4] = {1,3,5,7};
     No *lista2 = criar_lista(vetor2, 4);
+    
     int vetor3[3] = {2,4,6};
     No *lista3 = criar_lista(vetor3, 3);
-
+    
+    int vetor4[2] =  {10,20};
+    No *lista4 = criar_lista(vetor4, 2);
+    
+    int vetor5[4] = {1,2,3,4};
+    No *lista5 = criar_lista(vetor5, 4);
+    
     imprimir_lista(intercalar(lista2, lista3));
+    imprimir_lista(intercalar(lista4, lista5));
+    imprimir_lista(intercalar(NULL, lista2));
     return 0;
 }
