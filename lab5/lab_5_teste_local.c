@@ -122,7 +122,6 @@ No *rotacionar(No *lista, int k) {
         atual = atual -> prox;
     } //além dessa função contar, para pegarmos o k real, ela também deixa no último elemento, facilitando a rotação
     k_real = k % numero_elementos;
-    printf("k_real %d, nelementos: %d\n", k_real, numero_elementos);
     atual = lista;
 
     for (int i = k_real; i > 0; i--) {
@@ -172,7 +171,42 @@ No *intercalar(No *a, No *b) {
     return b;
 }
 NoDuplo *reorganizar(NoDuplo *lista) {
-    return NULL;
+    //tenho sempre que pegar 2 pares, primeiro e último, mas é bom eu pegar primeiro o número de nós, para saber se é par ou ímpar.
+    NoDuplo *atual = lista;
+    short int numeroElementos = 0;
+    while (atual != NULL) {
+        atual = atual->prox;
+        numeroElementos++;
+    }
+    atual = lista;
+    NoDuplo *segundo_atual = lista;
+    
+    for (int i = numeroElementos; i > 2; i -= 2) {
+        //printf("segundo_atual: %d\n", segundo_atual->valor);
+        //printf("segundo_atual-> prox = %d\n", segundo_atual->prox->valor);
+        //para chegar no último elemento
+        while (segundo_atual != NULL && segundo_atual->prox != NULL) { //se segundo_atual -> prox == NULL .*. último
+            
+            segundo_atual = segundo_atual->prox;
+        }
+        NoDuplo *prox_atual = atual->prox; //guarda o 2
+        //printf("Atual: %d\n", atual ->valor);
+        //printf("Segundo atual: %d\n", segundo_atual ->valor);
+        atual->prox = segundo_atual; //1 -> 6
+        //printf("atual->prox->valor: %d\n",atual->prox->valor);
+        segundo_atual->ant->prox = NULL;
+        segundo_atual->ant = atual; // 1 <- 6
+        //printf("segundo_atual -> ant -> valor: %d\n", segundo_atual->ant->valor);
+        segundo_atual->prox = prox_atual; // 6 -> 2
+        //printf("segundo_atual -> prox -> valor: %d\n", segundo_atual->prox->valor);
+        prox_atual->ant = segundo_atual; // 6 <- 2
+        //printf("prox_atual -> ant -> valor: %d\n", prox_atual->ant->valor);
+        // TAMBÉM TEM QUE ATUALIZAR O 5, POR EXEMPLO
+
+        atual = prox_atual;
+        segundo_atual = prox_atual;
+    }
+    return lista;
 }
 
 /* ===== TESTES (voce pode acrescentar outros) ===== */
@@ -229,37 +263,10 @@ void testar_reorganizacao() {
 }
 
 int main() {
-    //int vetor1[5] = {1,2,3,4,5};
-    //No *lista1 = criar_lista(vetor1, 5);
-    //No *novo_inicio;
-    //NÃO É A MESMA LISTA, POR ISSO
-    /*
-    novo_inicio = rotacionar(lista1, 5);
-    imprimir_lista(novo_inicio);
-    
-    novo_inicio = rotacionar(novo_inicio, 1);
-    imprimir_lista(novo_inicio);
+    int vetor1[6] = {1,2,3,4,5,6};
+    int vetor2[] = {1,2,3,4,5};
 
-    novo_inicio = rotacionar(novo_inicio, 1);
-    imprimir_lista(novo_inicio);
-
-    novo_inicio = rotacionar(novo_inicio, 1);
-    imprimir_lista(novo_inicio);
-    */
-    int vetor2[4] = {1,3,5,7};
-    No *lista2 = criar_lista(vetor2, 4);
-    
-    int vetor3[3] = {2,4,6};
-    No *lista3 = criar_lista(vetor3, 3);
-    
-    int vetor4[2] =  {10,20};
-    No *lista4 = criar_lista(vetor4, 2);
-    
-    int vetor5[4] = {1,2,3,4};
-    No *lista5 = criar_lista(vetor5, 4);
-    
-    imprimir_lista(intercalar(lista2, lista3));
-    imprimir_lista(intercalar(lista4, lista5));
-    imprimir_lista(intercalar(NULL, lista2));
+    imprimir_lista_dupla(reorganizar(criar_lista_dupla(vetor1, 6)));
+    imprimir_lista_dupla(reorganizar(criar_lista_dupla(vetor2, 5)));
     return 0;
 }
